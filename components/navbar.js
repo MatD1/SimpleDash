@@ -7,16 +7,18 @@ import {
   VisuallyHidden,
   Tooltip,
 } from "@chakra-ui/react";
-import Link from 'next/link'
+import Head from 'next/link'
 import { Logo } from "./navbarComponents/Logo";
 import { MobileNav } from "./navbarComponents/MobileNav";
 import { NavLink } from "./navbarComponents/NavLink";
 import { useSession, signIn, signOut } from "next-auth/react";
 
+
 const NavBar = () => {
   const { data: session, status } = useSession();
   if (status === "authenticated") {
     return (
+      <>
       <Box>
         <Box as="header" bg={mode("white", "gray.800")} borderBottomWidth="1px">
           <Box
@@ -41,7 +43,7 @@ const NavBar = () => {
                   }}
                   spacing="8"
                 >
-                <Button colorScheme="orange"><a href="/TwitchDash">Dashboard</a></Button>
+                <Button bgGradient="linear(to-r, green.200, pink.500)"><a href="/TwitchDash">Dashboard</a></Button>
                 </HStack>
               </HStack>
               <Flex align="center">
@@ -62,6 +64,7 @@ const NavBar = () => {
           </Box>
         </Box>
       </Box>
+      </>
     );
   }
   return (
@@ -89,7 +92,6 @@ const NavBar = () => {
                     }}
                     spacing="8"
                   >
-                    <NavLink.Desktop active>Dashboard</NavLink.Desktop>
                   </HStack>
                 </HStack>
                 <Flex align="center">

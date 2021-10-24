@@ -15,211 +15,112 @@ import {
   useColorModeValue,
   HStack,
   Icon,
+  Avatar,
   chakra,
   Image,
+  ButtonGroup,
+  Code,
+  Grid,
+  Tabs, 
+  TabList, 
+  TabPanels, 
+  Tab, 
+  TabPanel
 } from "@chakra-ui/react";
 import { getSession } from "next-auth/react"
 import React, { useState } from "react"
+import Moment from 'react-moment'
+import Viewers from '../../components/viewers'
 // import UserCards from '../../components/topCards'
-import { FaArrowRight } from 'react-icons/fa'
-import { CategoryCard } from '../../components/topCards/CategoreyCard'
 
 const Twitch = ({ TwitchLive, Sk, User }) => {
   const [showKey, setShowKey] = useState(false);
   const Show = () => setShowKey(true);
   const Hide = () => setShowKey(false);
-
+  
   if (!Twitch) {
     return <div>Loading...</div>;
   }
   return (
-      <><>
+      <>
+      <>
       <VStack>
         {User?.map((us) => (
           console.log(User),
           <Box key={us.id}>
             <Center>
-              <Heading p="4">{us.display_name}</Heading>
-              <Heading>{us.id}</Heading>
+              <Stack direction='column'>
+            <Center>
+              <Avatar sx={{mt: 6, mr: 2}} src={us.profile_image_url} />
+              <Heading mt={2} pt="4">Hi! 👋, {us.display_name}</Heading>
               <Badge
                 fontSize="15px"
-                colorScheme="purple"
-              >View Count {us.view_count}
+                minW="23%"
+                maxW="13%"
+                colorScheme="blue"
+                sx={{mb: 6, ml: -3, fontSize: '12px'}}
+                borderRadius="5"
+              >View Count 👀 {us.view_count}
               </Badge>
+            </Center>
+                <Text p={5, 2} sx={{fontSize: '20px', }}>Account created on: <Moment style={{fontWeight: 'bold'}}>{us.created_at}</Moment></Text>
+                <Center>
+                  <Text pl={5, 2} sx={{fontSize: '20px', }}>Twitch user Id:  <Text sx={{fontWeight: 'bold', display: 'inLine'}}>{us.id}</Text></Text>
+                </Center>
+              </Stack>
             </Center>
           </Box>
         ))}
         {Sk.map((key) => (
           <div key={key.id}>
-            <Button margin={2} onClick={Show}>Show Stream Key</Button>
-            <Button margin={2} onClick={Hide}>Hide Stream Key</Button>
-            {showKey ? <Text>{key.stream_key}</Text> : null}
+            <Button m={2} onClick={Show}>Show Stream Key</Button>
+            <Button m={2} onClick={Hide}>Hide Stream Key</Button>      
+            {showKey ? <Code m={2}>{key.stream_key}</Code>: null}
           </div>
         ))}
       </VStack>
-      <Flex
-        bg={useColorModeValue("#F9FAFB", "gray.600")}
-        p={50}
-        w="full"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Box
-          maxW="xs"
-          mx="auto"
-          bg={useColorModeValue("white", "gray.800")}
-          shadow="lg"
-          rounded="lg"
-        >
-          <Box px={4} py={2}>
-            {TwitchLive.map((tl) => {
-              console.log(TwitchLive),
-                <div key={tl.id}>
-                  <a>{tl.user_name}</a>
-                  <chakra.h1
-                    color={useColorModeValue("gray.800", "white")}
-                    fontWeight="bold"
-                    fontSize="3xl"
-                    textTransform="uppercase"
-                  >
-                    {tl.user_name}
-                  </chakra.h1>
-                  <chakra.p
-                    mt={1}
-                    fontSize="sm"
-                    color={useColorModeValue("gray.600", "gray.400")}
-                  >{tl.description}
-                  </chakra.p>
-                </div>;
-            })}
-          </Box>
-          {TwitchLive.map((tl) => (
-            <div key={tl.id}>
-              <Image
-                h={48}
-                w="full"
-                fit="cover"
-                mt={2}
-                src={tl.thumbnail_url}
-                alt="Twitch live stream thumbnail" />
-
-              <Flex
-                alignItems="center"
-                justifyContent="space-between"
-                px={4}
-                py={2}
-                bg="gray.900"
-                roundedBottom="lg"
-              >
-                <chakra.h1 color="white" fontWeight="bold" fontSize="lg">
-                  {tl.viewer_count}
-                </chakra.h1>
-                <chakra.button
-                  px={2}
-                  py={1}
-                  bg="white"
-                  fontSize="xs"
-                  color="gray.900"
-                  fontWeight="bold"
-                  rounded="lg"
-                  textTransform="uppercase"
-                  _hover={{
-                    bg: "gray.200",
-                  }}
-                  _focus={{
-                    bg: "gray.400",
-                  }}
-                >
-                  Add to cart
-                </chakra.button>
-              </Flex>
-            </div>
-          ))}
-        </Box>
-      </Flex>
+      <Divider width="100%"  orientation="horizontal" colorScheme="blue" />
+      <Tabs variant="soft-rounded" colorScheme="green">
+        <TabList>
+          <Tab m={2}>Banned Channel Users </Tab>
+          <Tab m={2}>Look up user Id</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <p>👾, You have not banned anyone</p>
+          </TabPanel>
+          <TabPanel>
+            <p>two!</p>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+      <Divider width="100%"  orientation="horizontal" colorScheme="blue" />
+      <Heading ml={2} pb={4}>Streams you follow that are live right now!</Heading>
       </>
-      <div>
-        <Box
-          maxW="7xl"
-          mx="auto"
-          px={{
-            base: '4',
-            md: '8',
-            lg: '12',
-          }}
-          py={{
-            base: '6',
-            md: '8',
-            lg: '12',
-          }}
-        >
-          <Stack
-            spacing={{
-              base: '6',
-              md: '8',
-              lg: '12',
-            }}
-          >
-            <Flex
-              justify="space-between"
-              align={{
-                base: 'start',
-                md: 'center',
-              }}
-              direction={{
-                base: 'column',
-                md: 'row',
-              }}
-            >
-              <Heading size="lg">Season's Favorites</Heading>
-              <HStack
-                spacing={{
-                  base: '2',
-                  md: '3',
-                }}
-              >
-                <Link
-                  fontSize={{
-                    base: 'md',
-                    md: 'lg',
-                  }}
-                  fontWeight="bold"
-                  color={useColorModeValue('blue.500', 'blue.300')}
-                >
-                  See all categories
-                </Link>
-                <Icon
-                  as={FaArrowRight}
-                  color={useColorModeValue('blue.500', 'blue.300')}
-                  fontSize={{
-                    base: 'sm',
-                    md: 'md',
-                  }} />
-              </HStack>
-            </Flex>
-            <SimpleGrid
-              columns={{
-                base: 1,
-                md: 2,
-                lg: 3,
-              }}
-              gap={{
-                base: '8',
-                lg: '16',
-              }}
-            >
-              {TwitchLive?.map((tv) => {
-                return (
-                <CategoryCard key={tv.id} category={tv} />
-                )
-              })}
-            </SimpleGrid>
-          </Stack>
+      <SimpleGrid minChildWidth="300px" spacing="40px">
+      {TwitchLive.map((tl) =>(
+        console.log(tl),
+        <>
+        <Box key={tl.id} ml={4} mr={4} mb={2} borderRadius='20px' bgGradient="linear(to-l, #7928CA, #41d4ec)" height="450px" boxShadow="dark-lg">
+        <Center>
+          <Heading color="white" href={`https://twitch.tv/${tl.user_name}`}>{tl.user_name}</Heading>
+          <Badge sx={{marginLeft: 1, marginBottom: 1.5}} colorScheme="blue">👀 {tl.viewer_count}</Badge>
+
+        </Center>
+        <div>
+            <Text sx={{fontSize: '24px'}} pl={4} pr={2}>{tl.title}</Text>
+            <Text pt={2} pl={2}>{tl.user_name} is Playing: <Badge colorScheme="teal" sx={{fontSize: '20px', display: 'inline', }}>{tl.game_name}</Badge></Text>
+            <Text pt={2} pl={2}>{tl.user_name} started streaming @: <Badge colorScheme="teal" sx={{fontSize: '20px', display: 'inline', }}><Moment local format="MM:HH DD/MM/YYYY ">{tl.started_at}</Moment></Badge></Text>
+          </div>
         </Box>
-      </div>
+        </>
+        ))}
+      </SimpleGrid>
       </>
   );
 };
+
+//https://api.twitch.tv/v5/channels/[CHANNEL_ID]/analytics/sessions_summary
 
 Twitch.getInitialProps = async (ctx) => {
   try {
@@ -268,4 +169,3 @@ Twitch.getInitialProps = async (ctx) => {
 };
 
 export default Twitch;
-
