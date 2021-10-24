@@ -168,9 +168,7 @@ export const MobileNav = () => {
                   sm: 2,
                 }}
               >
-              <Link href="/categorys">
-                <Button leftIcon={<Icon as={HiCloudDownload}/>}>Categories</Button>
-              </Link>
+                <Button href="/TwitchDash" leftIcon={<Icon as={HiCloudDownload}/>}>Categories</Button>
               </SimpleGrid>
               <VStack mt="8" spacing="4">
                 <Box textAlign="center" fontWeight="medium">
