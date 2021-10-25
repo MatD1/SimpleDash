@@ -22,12 +22,13 @@ import {
   HiOutlineX,
   HiQuestionMarkCircle,
 } from 'react-icons/hi'
+import {SiTwitch} from 'react-icons/si'
 import { RemoveScroll } from 'react-remove-scroll'
 import { Logo } from './Logo'
-import { NavLink } from './NavLink'
-import Link from 'next/link'
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const variants = {
+
   show: {
     display: 'revert',
     opacity: 1,
@@ -103,12 +104,14 @@ const Transition = (props) => {
 }
 
 export const MobileNav = () => {
+  const { data: session, status } = useSession();
   const [show, { toggle, off }] = useBoolean()
   const ref = React.useRef(null)
   useFocusOnShow(ref, {
     visible: show,
     shouldFocus: true,
   })
+  if (status === "authenticated") {
   return (
     <>
       <Box
@@ -168,17 +171,14 @@ export const MobileNav = () => {
                   sm: 2,
                 }}
               >
-              <Link href="/categorys">
-                <Button leftIcon={<Icon as={HiCloudDownload}/>}>Categories</Button>
-              </Link>
+              <a href="/Dash">
+                <Button leftIcon={<Icon as={SiTwitch}/>}>Dashboard</Button>
+              </a>
               </SimpleGrid>
               <VStack mt="8" spacing="4">
-                <Box textAlign="center" fontWeight="medium">
-                  Administrators Only{' '}
-                  <Box as="a" color={mode('blue.600', 'blue.400')}>
-                    Log in
-                  </Box>
-                </Box>
+                  <Button onClick={() => signOut()} as="a" color={mode('blue.600', 'blue.400')}>
+                   {session.user.name || session.user.email}, log Out
+                  </Button>
               </VStack>
             </Box>
           </Box>
@@ -186,4 +186,75 @@ export const MobileNav = () => {
       </Transition>
     </>
   )
+} return (
+  <>
+      <Box
+        as="button"
+        type="button"
+        p="1"
+        fontSize="2xl"
+        color="gray.600"
+        onClick={toggle}
+        display={{
+          base: 'block',
+          lg: 'none',
+        }}
+      >
+        <HiOutlineMenu />
+      </Box>
+
+      <Transition in={show}>
+        <RemoveScroll enabled={show}>
+          <Backdrop show={show} />
+        </RemoveScroll>
+        <FocusLock disabled={!show} returnFocus>
+          <Box
+            bg={mode('white', 'gray.700')}
+            shadow="lg"
+            rounded="lg"
+            ref={ref}
+            tabIndex={0}
+            outline={0}
+          >
+            <Box pt="5" pb="6" px="5">
+              <Flex justify="space-between" align="center">
+                <Logo h="6" iconColor="blue.600" />
+                <Box mr="-2" mt="-2">
+                  <Center
+                    as="button"
+                    type="button"
+                    onClick={off}
+                    rounded="base"
+                    p="1"
+                    color={mode('gray.600', 'gray.400')}
+                    _hover={{
+                      bg: mode('gray.100', 'gray.600'),
+                    }}
+                  >
+                    <Box srOnly>Close menu</Box>
+                    <HiOutlineX aria-hidden fontSize="1.5rem" />
+                  </Center>
+                </Box>
+              </Flex>
+              <SimpleGrid
+                as="nav"
+                gap="6"
+                mt="8"
+                columns={{
+                  base: 1,
+                  sm: 2,
+                }}
+              >
+              </SimpleGrid>
+              <VStack mt="8" spacing="4">
+                  <Button onClick={() => signIn()} as="a" color={mode('blue.600', 'blue.400')}>
+                    Log in
+                  </Button>
+              </VStack>
+            </Box>
+          </Box>
+        </FocusLock>
+      </Transition>
+    </>
+)
 }

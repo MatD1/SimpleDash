@@ -37,5 +37,11 @@ export default NextAuth({
               session.id = token.sub
               return session
           }
+      },
+      events: {
+         signIn: ({user}) => {
+             console.log(user.name)
+         },
+        async signOut(message) { /* on signout */ },
       }
   });

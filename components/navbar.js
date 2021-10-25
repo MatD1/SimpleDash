@@ -43,7 +43,7 @@ const NavBar = () => {
                   }}
                   spacing="8"
                 >
-                <Button bgGradient="linear(to-r, green.200, pink.500)"><a href="/TwitchDash">Dashboard</a></Button>
+                <Button bgGradient="linear(to-r, green.200, pink.500)"><a href="/Dash">Dashboard</a></Button>
                 </HStack>
               </HStack>
               <Flex align="center">
