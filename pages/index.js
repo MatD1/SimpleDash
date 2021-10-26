@@ -15,9 +15,7 @@ export default function Home() {
       </Head>
       <VStack p={4}>
         <Heading>
-          Weclome To TwitchDash, If you're seeing this page you need to login
-          with Twitch! This enables us to recieve the appropriate data from
-          Twitch to then show you!
+          Hi! If your viewing this page simply hit the button up top that says "Dashboard"!
         </Heading>
       </VStack>
     </div>

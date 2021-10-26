@@ -20,7 +20,7 @@ const fetcher = async (url, accessToken, client) => {
     const res = await axios.get(url, {
       headers: {
         "Authorization": `Bearer ${accessToken}`,
-        "Client-Id": `${client}`,
+        "Client-Id": `xdvirywa3bq2w88tm60wtmw82zumle`,
       },
     });
     return res.data.data;
@@ -39,8 +39,7 @@ export function Followed() {
           : null,
         fetcher,
         { revailidateOnFocus: false },
-        { refreshInterval: 120000 },
-        { revalidateIfStale: true }
+        { refreshInterval: 300000 },
       );
 
       if (viewsError)

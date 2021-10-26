@@ -1,0 +1,140 @@
+import axios from "axios";
+import Link from "next/link";
+import {
+  VStack,
+  Heading,
+  Divider,
+  Text,
+  Box,
+  Badge,
+  Center,
+  Skeleton,
+  Avatar,
+  SimpleGrid,
+  Stack,
+  IconButton,
+  Code,
+  Icon,
+  Button,
+  Tabs, 
+  TabList, 
+  TabPanels, 
+  Tab, 
+  TabPanel
+} from "@chakra-ui/react";
+import React, {useState} from 'react';
+import { useSession } from "next-auth/react";
+import useSWR from "swr";
+import { LockIcon, UnlockIcon } from '@chakra-ui/icons'
+import { KeyModal } from "../../components/keyModal";
+import { Followed } from "../../components/Tab1/Followed";
+import { TopTen } from "../../components/Tab1/Top";
+import { UserCard } from "../../components/TwitchDash-Components/UserCard";
+
+
+
+const fetcher = async (url, accessToken, client) => {
+  const res = await axios.get(url, {
+    headers: {
+      "Authorization": `Bearer ${accessToken}`,
+      "Client-Id": `xdvirywa3bq2w88tm60wtmw82zumle`,
+    },
+  });
+  return res.data.data;
+};
+
+function Dash() {
+  const client = process.env.TWITCH_CLIENT_ID;
+  const { data: session } = useSession();
+  
+
+  const { data: following, error: viewsError } = useSWR(
+    session
+      ? [
+          `https://api.twitch.tv/helix/streams/followed?user_id=${session.id}`,
+          session.accessToken, client,
+        ]
+      : null,
+    fetcher,
+    { revailidateOnFocus: false },
+    { refreshInterval: 120000 },
+    { revalidateIfStale: true }
+  );
+  const { data: key, error: keyErrors } = useSWR(
+    session
+      ? [
+          `https://api.twitch.tv/helix/streams/key?broadcaster_id=${session.id}`,
+          session.accessToken,
+        ]
+      : null,
+    fetcher,
+    { revailidateOnFocus: false }
+  );
+  const { data: userInfo, error: userError } = useSWR(
+    session
+      ? [
+          `https://api.twitch.tv/helix/users?id=${session.id}`,
+          session.accessToken,
+        ]
+      : null,
+    fetcher,
+    { revailidateOnFocus: false }
+  );
+
+  if (viewsError)
+    return (
+      console.log(viewsError),
+      (
+        <div>
+          Theres has been an error, refesh the page or re-login:{" "}
+          {viewsError.message}
+        </div>
+      )
+    );
+  if (keyErrors)
+    return (
+      console.log(keyErrors),
+      (
+        <div>
+          Theres has been an error, refesh the page or re-login:{" "}
+          {keyErrors.message}
+        </div>
+      )
+    );
+  if (userError)
+    return (
+      console.log(userError),
+      (
+        <div>
+          Theres has been an error, refesh the page or re-login:{" "}
+          {userError.message}
+        </div>
+      )
+    );
+  if (!following) return (<Skeleton />);
+  if (!key) return (<Skeleton />);
+  if (!userInfo) (<Skeleton />);
+
+  return <>
+    <VStack>
+        <UserCard />
+    </VStack>
+    <Divider width="90%" mb={8} />
+      <Tabs isFitted variant="enclosed" mr={4} ml={4}>
+        <TabList mb="1em" width="100%">
+          <Tab>Followed Streams</Tab>
+          <Tab>Top 10</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <Followed />
+          </TabPanel>
+          <TabPanel>
+              <TopTen />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+  </>;
+}
+
+export default Dash;

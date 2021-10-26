@@ -7,9 +7,9 @@ import {
   Center,
   Skeleton,
   SimpleGrid,
+  Tag,
   Stack
 } from "@chakra-ui/react";
-import React, {useState} from 'react';
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
 import Moment from "react-moment";
@@ -36,9 +36,8 @@ export function TopTen() {
             ]
           : null,
         fetcher,
-        { revailidateOnFocus: false },
-        { refreshInterval: 120000 },
-        { revalidateIfStale: true }
+        { revailidateOnFocus: true },
+        { refreshInterval: 300000 }
       );
 
       if (viewsError)
@@ -55,37 +54,35 @@ export function TopTen() {
     if (!top) return (<Skeleton />);
 
     return <>
-        <SimpleGrid minChildWidth="300px" spacing="40px">
+        <SimpleGrid minChildWidth='300px' spacing="20px">
         {top.map(
           (top) => (
             (
               <>
                 <Box
                   key={top.id}
-                  ml={4}
-                  mr={4}
-                  mb={2}
+                  
                   borderRadius="20px"
                   bgGradient="linear(to-l, #7928CA, #41d4ec)"
                   height="450px"
+                  width='350px'
                   boxShadow="dark-lg"
                 >
-                
-                  <Center>
+                <Center>
                     <Heading
                       color="white"
                       href={`https://twitch.tv/${top.user_name}`}
                     >
                       {top.user_name}
                     </Heading>
-                    <Badge
+
+                    <Tag
                       sx={{ marginLeft: 1, marginBottom: 1.5 }}
-                      colorScheme="blue"
+                      colorScheme="blue" p='-20'
                     >
                       👀 {top.viewer_count}
-                    </Badge>
-                  </Center>
-
+                    </Tag>
+                </Center>
                   <div>
                     <Text sx={{ fontSize: "24px" }} pl={4} pr={2}>
                       {top.title}

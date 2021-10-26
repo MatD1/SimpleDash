@@ -5,13 +5,14 @@ import {
   HStack,
   useColorModeValue as mode,
   VisuallyHidden,
-  Tooltip,
+  useColorMode
 } from "@chakra-ui/react";
 import Head from 'next/link'
 import { Logo } from "./navbarComponents/Logo";
 import { MobileNav } from "./navbarComponents/MobileNav";
 import { NavLink } from "./navbarComponents/NavLink";
 import { useSession, signIn, signOut } from "next-auth/react";
+import ColorMode from "./colorMode";
 
 
 const NavBar = () => {
@@ -43,7 +44,7 @@ const NavBar = () => {
                   }}
                   spacing="8"
                 >
-                <Button bgGradient="linear(to-r, green.200, pink.500)"><a href="/Dash">Dashboard</a></Button>
+                <Button bgGradient="linear(to-r, red.200, pink.500)" _hover={{bgGradient: "linear(to-r, blue.200, pink.500)"}}><a href="/Dash">Dashboard</a></Button>
                 </HStack>
               </HStack>
               <Flex align="center">
@@ -54,6 +55,7 @@ const NavBar = () => {
                     md: "flex",
                   }}
                 >
+                  <ColorMode />
                   <NavLink.Desktop onClick={() => signOut()}>{session.user.name || session.user.email}</NavLink.Desktop>
                 </HStack>
                 <Box ml="5">
@@ -102,6 +104,7 @@ const NavBar = () => {
                       md: "flex",
                     }}
                   >
+                  <ColorMode />
                     <NavLink.Desktop onClick={() => signIn()}>Log in</NavLink.Desktop>
                   </HStack>
                   <Box ml="5">
