@@ -7,7 +7,7 @@ import {
   VisuallyHidden,
   useColorMode
 } from "@chakra-ui/react";
-import Head from 'next/link'
+import Link from 'next/link'
 import { Logo } from "./navbarComponents/Logo";
 import { MobileNav } from "./navbarComponents/MobileNav";
 import { NavLink } from "./navbarComponents/NavLink";
@@ -44,7 +44,9 @@ const NavBar = () => {
                   }}
                   spacing="8"
                 >
-                <Button bgGradient="linear(to-r, red.200, pink.500)" _hover={{bgGradient: "linear(to-r, blue.200, pink.500)"}}><a href="/Dash">Dashboard</a></Button>
+                <Link href="/Dash">
+                  <Button bgGradient="linear(to-r, red.200, pink.500)" _hover={{bgGradient: "linear(to-r, blue.200, pink.500)"}}>Dashboard</Button>
+                </Link>
                 </HStack>
               </HStack>
               <Flex align="center">

@@ -1,5 +1,4 @@
 import axios from "axios";
-import Link from "next/link";
 import {
   Heading,
   Text,
@@ -8,13 +7,11 @@ import {
   Center,
   Skeleton,
   SimpleGrid,
-
 } from "@chakra-ui/react";
 import React, {useState} from 'react';
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
 import Moment from "react-moment";
-import { LockIcon, UnlockIcon } from '@chakra-ui/icons'
 
 const fetcher = async (url, accessToken, client) => {
     const res = await axios.get(url, {

@@ -13,7 +13,6 @@ import {
 import React, {useState} from 'react';
 import { useSession } from "next-auth/react";
 import useSWRImmutable from 'swr/immutable'
-import Moment from "react-moment";
 import { StreamKey } from "./StreamKey";
 
 const fetcher = async (url, accessToken, client) => {
