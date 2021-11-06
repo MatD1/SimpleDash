@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react"
 import LoginModal from '../components/UI/loginModal'
 
 export default function Home() {
-  const { data: status } = useSession()
+  const { data: session,  status } = useSession()
 
   if (status === "loading") {
     return <p>Loading...</p>
@@ -35,7 +35,7 @@ export default function Home() {
           <Center>
             <Box mt={40}>
               <Text sx={{fontSize: '30px'}} m={['4', '3']}>Thanks for checking out TwitchDash!</Text>
-              <Text sx={{fontSize: '30px'}} m={['4', '3']}>Press the button above that says "Dashboard" to view your TwitchDash!</Text>
+              <Text sx={{fontSize: '30px'}} m={['4', '3']}>Press the button above that says "Dashboard" to view your awesome Dashboard</Text>
             </Box>
           </Center>
         </VStack>
