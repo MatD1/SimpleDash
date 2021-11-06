@@ -13,6 +13,7 @@ import { MobileNav } from "./navbarComponents/MobileNav";
 import { NavLink } from "./navbarComponents/NavLink";
 import { useSession, signIn, signOut } from "next-auth/react";
 import ColorMode from "./colorMode";
+import LoginModal from "./loginModal";
 
 
 const NavBar = () => {
@@ -45,7 +46,7 @@ const NavBar = () => {
                   spacing="8"
                 >
                 <Link href="/Dash">
-                  <Button bgGradient="linear(to-r, red.200, pink.500)" _hover={{bgGradient: "linear(to-r, blue.200, pink.500)"}}>Dashboard</Button>
+                  <Button>Dashboard</Button>
                 </Link>
                 </HStack>
               </HStack>
@@ -58,7 +59,7 @@ const NavBar = () => {
                   }}
                 >
                   <ColorMode />
-                  <NavLink.Desktop onClick={() => signOut()}>{session.user.name || session.user.email}</NavLink.Desktop>
+                  <LoginModal />
                 </HStack>
                 <Box ml="5">
                   <MobileNav />
@@ -107,7 +108,7 @@ const NavBar = () => {
                     }}
                   >
                   <ColorMode />
-                    <NavLink.Desktop onClick={() => signIn()}>Log in</NavLink.Desktop>
+                    <LoginModal />
                   </HStack>
                   <Box ml="5">
                     <MobileNav />

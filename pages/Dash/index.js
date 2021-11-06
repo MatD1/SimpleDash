@@ -11,14 +11,15 @@ import {
   Text,
   Button
 } from "@chakra-ui/react";
-import { Followed } from "../../components/Tab1/Followed";
-import { TopTen } from "../../components/Tab1/Top";
-import { UserCard } from "../../components/TwitchDash-Components/UserCard";
+import { Followed } from "../../components/TwitchDash-Components/Tabs/Followed";
+import { TopTen } from "../../components/TwitchDash-Components/Tabs/Top";
+import { UserCard } from "../../components/TwitchDash-Components/UserStuff/UserCard";
 
-import { useSession, getSession, signIn } from "next-auth/react"
+import { useSession, signIn } from "next-auth/react"
+import { TopTwentyGames } from "../../components/TwitchDash-Components/Tabs/TopGames";
 
 export default function Dash() {
-  const { data: session, status } = useSession()
+  const { data: status } = useSession()
 
   if (status === "loading") {
     return <p>Loading...</p>
@@ -49,6 +50,7 @@ export default function Dash() {
         <TabList mb="1em" width="100%">
           <Tab>Followed Streams</Tab>
           <Tab>Top 10</Tab>
+          <Tab>Top 20 Games</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -56,6 +58,9 @@ export default function Dash() {
           </TabPanel>
           <TabPanel>
               <TopTen />
+          </TabPanel>
+          <TabPanel>
+            <TopTwentyGames />
           </TabPanel>
         </TabPanels>
       </Tabs>

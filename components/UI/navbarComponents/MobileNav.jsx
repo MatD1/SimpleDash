@@ -9,7 +9,8 @@ import {
   useFocusOnShow,
   VStack,
   useColorModeValue as mode,
-  Icon
+  Icon,
+  ButtonGroup
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import * as React from 'react'
@@ -26,6 +27,8 @@ import {SiTwitch} from 'react-icons/si'
 import { RemoveScroll } from 'react-remove-scroll'
 import { Logo } from './Logo'
 import { useSession, signIn, signOut } from "next-auth/react";
+import LoginModal from '../loginModal'
+import ColorMode from '../colorMode'
 
 const variants = {
 
@@ -175,11 +178,10 @@ export const MobileNav = () => {
                 <Button leftIcon={<Icon as={SiTwitch}/>}>Dashboard</Button>
               </a>
               </SimpleGrid>
-              <VStack mt="8" spacing="4">
-                  <Button onClick={() => signOut()} as="a" color={mode('blue.600', 'blue.400')}>
-                   {session.user.name || session.user.email}, log Out
-                  </Button>
-              </VStack>
+              <ButtonGroup mt="8" spacing="4">
+                <LoginModal />
+                <ColorMode />
+              </ButtonGroup>
             </Box>
           </Box>
         </FocusLock>
@@ -246,11 +248,10 @@ export const MobileNav = () => {
                 }}
               >
               </SimpleGrid>
-              <VStack mt="8" spacing="4">
-                  <Button onClick={() => signIn()} as="a" color={mode('blue.600', 'blue.400')}>
-                    Log in
-                  </Button>
-              </VStack>
+              <ButtonGroup mt="8" spacing="4">
+                 <LoginModal />
+                 <ColorMode />
+              </ButtonGroup>
             </Box>
           </Box>
         </FocusLock>

@@ -3,7 +3,7 @@ import { SessionProvider } from "next-auth/react";
 import { ChakraProvider } from "@chakra-ui/react";
 import useSWR, { SWRConfig } from 'swr'
 import Layout from "../layout";
-import theme from "../components/theme";
+import theme from "../components/UI/theme";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (

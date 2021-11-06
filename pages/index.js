@@ -3,12 +3,12 @@ import {
   Center,
   Box,
   Text,
-  Button }
-  from '@chakra-ui/react'
-import { useSession, getSession, signIn } from "next-auth/react"
+} from '@chakra-ui/react'
+import { useSession } from "next-auth/react"
+import LoginModal from '../components/UI/loginModal'
 
 export default function Home() {
-  const { data: session, status } = useSession()
+  const { data: status } = useSession()
 
   if (status === "loading") {
     return <p>Loading...</p>
@@ -20,8 +20,8 @@ export default function Home() {
         <VStack h='480px'>
           <Center>
             <Box mt={40}>
-              <Text sx={{fontSize: '30px'}}>If your seeing this page you need to login, otherwise we can't show you any data related to you from you're Twitch account</Text>
-              <Button onClick={() => signIn()}>Log In</Button>
+              <Text sx={{fontSize: '30px'}} m={['4', '3']}>If your seeing this page you need to login, otherwise we can't show you any data related to you from you're Twitch account</Text>
+              <LoginModal />
             </Box>
           </Center>
         </VStack>
@@ -34,8 +34,8 @@ export default function Home() {
       <VStack h='480px'>
           <Center>
             <Box mt={40}>
-              <Text sx={{fontSize: '30px'}}>Thanks for checking out TwitchDash!</Text>
-              <Text sx={{fontSize: '30px'}}>Press the button above that says "Dashboard" to view your TwitchDash!</Text>
+              <Text sx={{fontSize: '30px'}} m={['4', '3']}>Thanks for checking out TwitchDash!</Text>
+              <Text sx={{fontSize: '30px'}} m={['4', '3']}>Press the button above that says "Dashboard" to view your TwitchDash!</Text>
             </Box>
           </Center>
         </VStack>

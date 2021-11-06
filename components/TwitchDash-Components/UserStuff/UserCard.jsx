@@ -1,16 +1,15 @@
 import axios from "axios";
 import {
   Heading,
-  Text,
   Box,
   Badge,
   Center,
   Skeleton,
   SimpleGrid,
   Stack,
-  Avatar
+  Avatar,
+  LightMode
 } from "@chakra-ui/react";
-import React, {useState} from 'react';
 import { useSession } from "next-auth/react";
 import useSWRImmutable from 'swr/immutable'
 import { StreamKey } from "./StreamKey";
@@ -53,6 +52,7 @@ export function UserCard() {
     if (!user) return (<Skeleton />);
 
     return <>
+       <LightMode>
          <SimpleGrid minChildWidth="300px" spacing="20px">
         {user.map((user) => (
           <Box key={user.id} m={[1, 2, 5]} boxShadow="outline" borderColor="black" borderRadius="20px" height="280px" width={[360, 400, 500]} boxShadow="xl">
@@ -71,7 +71,9 @@ export function UserCard() {
             </Center>
               <StreamKey />
           </Box>
+
         ))}
-      </SimpleGrid>
+      </SimpleGrid> 
+      </LightMode>
     </>
 }

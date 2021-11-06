@@ -37,7 +37,7 @@ const fetcher = async (url, accessToken, client) => {
   const res = await axios.get(url, {
     headers: {
       "Authorization": `Bearer ${accessToken}`,
-      "Client-Id": `xdvirywa3bq2w88tm60wtmw82zumle`,
+      "Client-Id": `xxx`,
     },
   });
   return res.data.data;

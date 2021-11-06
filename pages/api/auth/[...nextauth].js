@@ -9,11 +9,12 @@ export default NextAuth({
         clientSecret: process.env.TWITCH_SECRET,
         scope: 'user:read:follows',
       }),
-      Auth0Provider({
+      /*Auth0Provider({
         clientId: process.env.AUTH0_CLIENT_ID,
         clientSecret: process.env.AUTH0_CLIENT_SECRET,
         issuer: process.env.AUTH0_DOMAIN,
       })
+      */
     ],
     debug: true,
     secret: process.env.SECRET,

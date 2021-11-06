@@ -52,12 +52,12 @@ export function StreamKey() {
 
     return <>
           {key.map((userKey) => (
-            <>
+            <div>
             <Text sx={{paddingLeft: 2, paddingTop: 5}}>Click <UnlockIcon sx={{marginBottom: 1.5}}/> to show stream key</Text>
                 <IconButton colorScheme="facebook" aria-label="Shows the users stream key" icon={<UnlockIcon />} sx={{marginLeft: 2}} onClick={Show}>Show Stream Key</IconButton>
                 <IconButton colorScheme="facebook" aria-label="Hides the users stream key" icon={<LockIcon />} sx={{marginLeft: 2}} onClick={Hide}>Hide Stream Key</IconButton>      
                 {showKey ? <Code fontSize={['12px', '14px', '17px']} m={2}>{userKey.stream_key}</Code> : null}
-            </>
+            </div>
         ))}
     </>
 }

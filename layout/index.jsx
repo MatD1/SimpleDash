@@ -1,7 +1,7 @@
 import NextHead from 'next/head'
 import {Box } from '@chakra-ui/react'
-import Navbar  from '../components/navbar'
-import { Footer } from '../components/footer'
+import Navbar  from '../components/UI/navbar'
+import { Footer } from '../components/UI/footer'
 
 const Layout = ({ children }) => {
     return (

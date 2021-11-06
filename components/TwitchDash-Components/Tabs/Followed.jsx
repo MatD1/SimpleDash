@@ -8,7 +8,6 @@ import {
   Skeleton,
   SimpleGrid,
 } from "@chakra-ui/react";
-import React, {useState} from 'react';
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
 import Moment from "react-moment";
@@ -75,13 +74,15 @@ export function Followed() {
                     >
                       {follow.user_name}
                     </Heading>
-                    <Badge
-                      sx={{ marginLeft: 1, marginBottom: 1.5 }}
-                      colorScheme="blue"
+                  </Center>
+                  <Center>
+                <Badge
+                      sx={{ marginLeft: 1, marginBottom: 1.5, marginTop: 1.5, fontSize: '23px' }}
+                      colorScheme="blue" borderRadius="xl"
                     >
                       👀 {follow.viewer_count}
                     </Badge>
-                  </Center>
+                </Center>
                   <div>
                     <Text sx={{ fontSize: "24px" }} pl={4} pr={2}>
                       {follow.title}

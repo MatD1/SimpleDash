@@ -7,6 +7,7 @@ const ColorMode = () => {
 
   return (
     <IconButton
+      borderRadius="3xl"
       size="md"
       aria-label="theme toggle"
       icon={colorMode === "light" ? <RiMoonFill /> : <RiSunLine />}
