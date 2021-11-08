@@ -34,7 +34,7 @@ export default function Home() {
       <VStack h='480px'>
           <Center>
             <Box mt={40}>
-              <Text sx={{fontSize: '30px'}} m={['4', '3']}>Thanks for checking out TwitchDash!</Text>
+              <Text sx={{fontSize: '30px'}} m={['4', '3']}>Thanks for checking out MatDash!</Text>
               <Text sx={{fontSize: '30px'}} m={['4', '3']}>Press the button above that says "Dashboard" to view your awesome Dashboard</Text>
             </Box>
           </Center>
