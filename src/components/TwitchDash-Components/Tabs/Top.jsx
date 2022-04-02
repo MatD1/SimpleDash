@@ -16,14 +16,14 @@ const fetcher = async (url, accessToken, client) => {
     const res = await axios.get(url, {
       headers: {
         "Authorization": `Bearer ${accessToken}`,
-        "Client-Id": `xdvirywa3bq2w88tm60wtmw82zumle`,
+        "Client-Id": `${client}`,
       },
     });
     return res.data.data;
   };
 
 export function TopTen() {
-    const client = process.env.TWITCH_CLIENT_ID
+    const client = process.env.NEXT_PUBLIC_CLIENT_ID
     const {data: session} = useSession();
 
     const { data: top, error: viewsError } = useSWR(
@@ -33,9 +33,7 @@ export function TopTen() {
               session.accessToken, client,
             ]
           : null,
-        fetcher,
-        { revailidateOnFocus: true },
-        { refreshInterval: 300000 }
+        fetcher
       );
 
       if (viewsError)
@@ -43,8 +41,9 @@ export function TopTen() {
       console.log(viewsError),
       (
         <div>
-          Theres has been an error, refesh the page or re-login:{" "}
-          {viewsError.message}
+          <h1>We are awhere of the error with the logged in users session not expiring at the correct time. In the mean time please re-log:{" "}
+            {viewsError.message}
+          </h1>
         </div>
       )
     );
@@ -52,7 +51,7 @@ export function TopTen() {
     if (!top) return (<Skeleton />);
 
     return <>
-        <SimpleGrid minChildWidth='300px' spacing="20px">
+        <SimpleGrid minChildWidth='325px' spacing="20px">
         {top.map(
           (top) => (
             (
@@ -62,7 +61,7 @@ export function TopTen() {
                   borderRadius="20px"
                   bgGradient="linear(to-l, #7928CA, #41d4ec)"
                   height="450px"
-                  width='350px'
+                  width={['320px', '360px']}
                   boxShadow="dark-lg"
                 >
                 <Center>
@@ -89,7 +88,7 @@ export function TopTen() {
                       {top.user_name} is Playing:{" "}
                       <Badge
                         colorScheme="teal"
-                        sx={{ fontSize: "20px", display: "inline" }}
+                        sx={{ fontSize: "15px", display: "inline" }}
                       >
                         {top.game_name}
                       </Badge>

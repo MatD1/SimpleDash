@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
-import Twitch from "../../../providers/twitch";
-import Auth0Provider from 'next-auth/providers/auth0'
+import Twitch from "providers/twitch";
 
 export default NextAuth({
     providers: [
@@ -9,38 +8,31 @@ export default NextAuth({
         clientSecret: process.env.TWITCH_SECRET,
         scope: 'user:read:follows',
       }),
-      /*Auth0Provider({
-        clientId: process.env.AUTH0_CLIENT_ID,
-        clientSecret: process.env.AUTH0_CLIENT_SECRET,
-        issuer: process.env.AUTH0_DOMAIN,
-      })
-      */
     ],
     debug: true,
     secret: process.env.SECRET,
     session: {
-        jwt: true,
-        maxAge: 120000,
+        strategy: "jwt",
+        maxAge: 1000,
     },
-    jwt: {
-        secret: process.env.SECRET,
-
+    theme: {
+        colorScheme: "dark",
       },
+   /* pages: {
+        signIn: '/Auth/Login'
+   }, */
       callbacks: {
-          async signIn({ user, account, profile, email, credentials}) {
-              return true
+          async redirect({url="/Dash", baseUrl="/"}){
+              return url.startsWith('/') ? url : baseUrl
           },
-          async redirect({url="/TwitchDash", baseUrl="/"}){
-              return url.startsWith('/TwitchDash') ? url : baseUrl
-          },
-          async jwt({token, user, account, profile}) {
+          async jwt({token, user, account}) {
               if (account){
                   token.accessToken = account.access_token
                   token.sub = user.id
               }
               return token
           },
-          async session({ session, token, user}) {
+          async session({ session, token}) {
               session.accessToken = token.accessToken
               session.id = token.sub
               return session
@@ -48,9 +40,11 @@ export default NextAuth({
       },
       events: {
          signIn: ({user}) => {
-             console.log(user.name)
+             console.log('User ', user.name, ' Has signed in')
          },
-        async signOut(message) { /* on signout */ },
+         signOut: ({user}) => {
+             console.log('User', user.name, 'has signed out' )
+         },
       }
   });
 

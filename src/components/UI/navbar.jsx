@@ -10,14 +10,13 @@ import {
 import Link from 'next/link'
 import { Logo } from "./navbarComponents/Logo";
 import { MobileNav } from "./navbarComponents/MobileNav";
-import { NavLink } from "./navbarComponents/NavLink";
 import { useSession, signIn, signOut } from "next-auth/react";
 import ColorMode from "./colorMode";
 import LoginModal from "./loginModal";
 
 
 const NavBar = () => {
-  const { data: session, status } = useSession();
+  const { data: status } = useSession();
   if (status === "authenticated") {
     return (
       <>
@@ -35,7 +34,7 @@ const NavBar = () => {
             <Flex as="nav" justify="space-between">
               <HStack spacing="8">
                 <Box as="a" href="#" rel="home">
-                  <VisuallyHidden>TwitchDash</VisuallyHidden>
+                  <VisuallyHidden>SimpleDash</VisuallyHidden>
                   <Logo h="6" iconColor="blue.500" />
                 </Box>
                 <HStack
@@ -45,9 +44,6 @@ const NavBar = () => {
                   }}
                   spacing="8"
                 >
-                <Link href="/Dash">
-                  <Button>Dashboard</Button>
-                </Link>
                 </HStack>
               </HStack>
               <Flex align="center">
@@ -87,7 +83,7 @@ const NavBar = () => {
               <Flex as="nav" justify="space-between">
                 <HStack spacing="8">
                   <Box as="a" href="#" rel="home">
-                    <VisuallyHidden>TwitchDash</VisuallyHidden>
+                    <VisuallyHidden>SimpleDash</VisuallyHidden>
                     <Logo h="6" iconColor="blue.500" />
                   </Box>
                   <HStack

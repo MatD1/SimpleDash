@@ -14,14 +14,14 @@ const fetcher = async (url, accessToken, client) => {
     const res = await axios.get(url, {
       headers: {
         "Authorization": `Bearer ${accessToken}`,
-        "Client-Id": `xdvirywa3bq2w88tm60wtmw82zumle`,
+        "Client-Id": `${client}`,
       },
     });
     return res.data.data;
   };
 
 export function TopTwentyGames() {
-    const client = process.env.TWITCH_CLIENT_ID
+    const client = process.env.NEXT_PUBLIC_CLIENT_ID
     const {data: session} = useSession();
 
     const { data: top, error: viewsError } = useSWR(
@@ -31,9 +31,7 @@ export function TopTwentyGames() {
               session.accessToken, client,
             ]
           : null,
-        fetcher,
-        { revailidateOnFocus: true },
-        { refreshInterval: 300000 }
+        fetcher
       );
 
       if (viewsError)
@@ -41,8 +39,9 @@ export function TopTwentyGames() {
       console.log(viewsError),
       (
         <div>
-          Theres has been an error, refesh the page or re-login:{" "}
-          {viewsError.message}
+          <h1>We are awhere of the error with the logged in users session not expiring at the correct time. In the mean time please re-log:{" "}
+            {viewsError.message}
+          </h1>
         </div>
       )
     );
@@ -50,7 +49,7 @@ export function TopTwentyGames() {
     if (!top) return (<Skeleton />);
 
     return <>
-        <SimpleGrid minChildWidth='300px' spacing="20px">
+        <SimpleGrid minChildWidth={['null', '300px']} spacing="15px">
         {top.map(
           (top) => (
             (
@@ -60,7 +59,7 @@ export function TopTwentyGames() {
                   borderRadius="20px"
                   bgGradient="linear(to-l, #7928CA, #41d4ec)"
                   height="150px"
-                  width='350px'
+                  width={['320px', '360px']}
                   boxShadow="dark-lg"
                 >
                 <Center>
@@ -69,7 +68,7 @@ export function TopTwentyGames() {
                     </Heading>
                 </Center>
                 <Center>
-                <Badge sx={{ marginLeft: 1, marginBottom: 1.5, fontSize: '25px' }} colorScheme="blue" p='-20' p={2} borderRadius="xl">
+                <Badge sx={{ marginLeft: 1, marginBottom: 1.5, fontSize: '25px' }} colorScheme="blue" p='-20'  borderRadius="xl">
                     🆔 {top.id}
                 </Badge>
                 </Center>

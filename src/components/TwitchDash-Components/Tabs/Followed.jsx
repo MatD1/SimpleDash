@@ -16,14 +16,14 @@ const fetcher = async (url, accessToken, client) => {
     const res = await axios.get(url, {
       headers: {
         "Authorization": `Bearer ${accessToken}`,
-        "Client-Id": `xdvirywa3bq2w88tm60wtmw82zumle`,
+        "Client-Id": `${client}`,
       },
     });
     return res.data.data;
   };
 
 export function Followed() {
-    const client = process.env.TWITCH_CLIENT_ID
+    const client = process.env.NEXT_PUBLIC_CLIENT_ID
     const {data: session} = useSession();
 
     const { data: following, error: viewsError } = useSWR(
@@ -33,9 +33,7 @@ export function Followed() {
               session.accessToken, client,
             ]
           : null,
-        fetcher,
-        { revailidateOnFocus: false },
-        { refreshInterval: 300000 },
+        fetcher
       );
 
       if (viewsError)
@@ -43,8 +41,9 @@ export function Followed() {
       console.log(viewsError),
       (
         <div>
-          Theres has been an error, refesh the page or re-login:{" "}
-          {viewsError.message}
+          <h1>We are awhere of the error with the logged in users session not expiring at the correct time. In the mean time please re-log:{" "}
+            {viewsError.message}
+          </h1>
         </div>
       )
     );

@@ -8,7 +8,8 @@ import {
   SimpleGrid,
   Stack,
   Avatar,
-  LightMode
+  LightMode,
+  Container
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import useSWRImmutable from 'swr/immutable'
@@ -18,14 +19,14 @@ const fetcher = async (url, accessToken, client) => {
     const res = await axios.get(url, {
       headers: {
         "Authorization": `Bearer ${accessToken}`,
-        "Client-Id": `xdvirywa3bq2w88tm60wtmw82zumle`,
+        "Client-Id": `${client}`,
       },
     });
     return res.data.data;
   };
 
 export function UserCard() {
-    const client = process.env.TWITCH_CLIENT_ID
+    const client = process.env.NEXT_PUBLIC_CLIENT_ID
     const {data: session} = useSession();
 
     const { data: user, error: userError } = useSWRImmutable(
@@ -51,11 +52,13 @@ export function UserCard() {
 
     if (!user) return (<Skeleton />);
 
-    return <>
+    return (
+    <>
+    <Center>
        <LightMode>
-         <SimpleGrid minChildWidth="300px" spacing="20px">
+         <Container spacing="20px" >
         {user.map((user) => (
-          <Box key={user.id} m={[1, 2, 5]} boxShadow="outline" borderColor="black" borderRadius="20px" height="280px" width={[360, 400, 500]} boxShadow="xl">
+          <Box key={user.id} m={[1, 2, 5]}  borderColor="black" borderRadius="20px" height="280px" width={[320, 400, 500]} boxShadow="xl">
           <Center>
             <Stack direction="row">
               <Avatar sx={{marginTop: 2.5, marginLeft: 2}} src={user.profile_image_url} />
@@ -64,16 +67,17 @@ export function UserCard() {
           </Center>
             <Center>
               <Stack>
-                <Badge borderRadius="md" fontSize={['11.5px', '12px']} sx={{marginLeft: 5, marginTop: 2}} colorScheme="facebook">User Id 🏷️ : {user.id}</Badge>
-                <Badge borderRadius="md" fontSize={['11.5px', '12px']} sx={{marginLeft: 5, marginTop: 2}} colorScheme="facebook">Total channel views 👀 {user.view_count}</Badge>
-                <Badge borderRadius="md" fontSize={['11.5px', '12px']} sx={{marginLeft: 5, marginTop: 2}} colorScheme="facebook">Partnership type: {user.broadcaster_type || 'N/A'}</Badge>
+                <Badge borderRadius="md" fontSize={['11.5px', '15px']} sx={{marginTop: 2}} colorScheme="facebook">User Id 🏷️ : {user.id}</Badge>
+                <Badge borderRadius="md" fontSize={['11.5px', '15px']} sx={{marginLeft: 5, marginTop: 2}} colorScheme="facebook">Total channel views 👀 {user.view_count}</Badge>
+                <Badge borderRadius="md" fontSize={['11.5px', '15px']} sx={{marginLeft: 5, marginTop: 2}} colorScheme="facebook">Partnership type: {user.broadcaster_type || 'N/A'}</Badge>
               </Stack>
             </Center>
               <StreamKey />
           </Box>
-
         ))}
-      </SimpleGrid> 
-      </LightMode>
+        </Container> 
+        </LightMode>
+      </Center>
     </>
+    )
 }
