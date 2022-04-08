@@ -13,7 +13,8 @@ import {
   Skeleton,
   SkeletonCircle,
   SkeletonText,
-  Stack
+  Stack,
+  Badge
 } from "@chakra-ui/react";
 import { Followed } from "@/components/TwitchDash-Components/Tabs/Followed";
 import { TopTen } from "@/components/TwitchDash-Components/Tabs/Top";
@@ -23,6 +24,8 @@ import { useSession, signIn } from "next-auth/react"
 import { TopTwentyGames } from "@/components/TwitchDash-Components/Tabs/TopGames";
 import ModTabs from "@/components/TwitchDash-Components/UserStuff/ChannelModeration/ModerationTabs";
 import EmoteTabs from "@/components/TwitchDash-Components/UserStuff/Emotes/EmoteTabs";
+import HomePage from "./Home";
+import Moderation from "./Moderation";
 
 export default function Home() {
   const { data: status } = useSession()
@@ -61,29 +64,19 @@ export default function Home() {
 
   return (
     <>
-      <VStack>
-        <Stack direction={{md: 'column', base: 'column', sm: 'column', lg: 'row'}} spacing={'10'}>
-            <UserCard />
-            <ModTabs />
-        </Stack>
-      </VStack>
-    <EmoteTabs />
     <Divider width="100%" mb={8} />
-      <Tabs isFitted variant="enclosed" mr={4} ml={4}>
+      <Tabs isFitted variant="soft-rounded" mr={4} ml={4}>
         <TabList mb="1em" width="100%">
-          <Tab>Followed Streams</Tab>
-          <Tab>Top 10</Tab>
-          <Tab>Top 20 Games</Tab>
+          <Tab fontSize={['13px', '18px']}>Streams & More</Tab>
+          <Tab fontSize={['13px', '18px']}>Moderation</Tab>
+          <Tab isDisabled cursor={'not-allowed'} fontSize={['13px', '18px']}>Live Stuff <Badge ml="2" mt="1" fontSize={['9px', '10px']} size="2xl" colorScheme={'pink'}>Coming Soon!</Badge></Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
-            <Followed />
+            <HomePage />
           </TabPanel>
           <TabPanel>
-              <TopTen />
-          </TabPanel>
-          <TabPanel>
-            <TopTwentyGames />
+              <Moderation />
           </TabPanel>
         </TabPanels>
       </Tabs>

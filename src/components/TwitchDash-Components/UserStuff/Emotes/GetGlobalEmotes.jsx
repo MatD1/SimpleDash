@@ -62,7 +62,7 @@ export function GetGlobalEmotes() {
 
   return (
      <>
-         <Box spacing="20px" maxH={'200px'} maxW={['320px', '700px']} overflowX='auto' overflowY="auto">
+         <Box  minChildWidth="100px" spacing="20px" maxH={'200px'}  overflowX='auto' overflowY="auto">
             <Stack direction={'column'} spacing={'4'}>
                 <TableContainer>
                     <Table variant='simple' overflowX="auto" overflowY="auto">

@@ -13,7 +13,7 @@ function Twitch(options) {
     type: "oauth",
     authorization: {
       params:  {
-        scope: "openid user:read:email channel:read:stream_key user:read:follows moderation:read channel:read:editors",
+        scope: "openid user:read:email channel:read:stream_key user:read:follows moderation:read channel:read:editors moderator:manage:banned_users", 
         params: "broadcaster_id",
         claims: JSON.stringify({
           id_token: {

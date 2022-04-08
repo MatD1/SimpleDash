@@ -19,7 +19,7 @@ import { GetGlobalEmotes } from "./GetGlobalEmotes";
   
   export default function EmoteTabs() {
     return (
-        <Tabs isLazy isFitted variant="enclosed" mr={['5', '4']} ml={['5', '4']} pt={'2'} >
+        <Tabs isLazy isFitted mr={['5', '4']} ml={['5', '4']} pt={'2'} >
           <TabList mb="1em" width="100%" mr={['null', '4']} ml={['null', '4']}>
             <Tab whiteSpace={['normal']} pl={30} pr={30}>Channel Emotes</Tab>
             <Tab  whiteSpace={['normal']}>Glboal Emotes</Tab>

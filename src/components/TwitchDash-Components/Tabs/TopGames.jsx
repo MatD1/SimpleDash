@@ -49,7 +49,7 @@ export function TopTwentyGames() {
     if (!top) return (<Skeleton />);
 
     return <>
-        <SimpleGrid minChildWidth={['null', '300px']} spacing="15px">
+        <SimpleGrid minChildWidth={['20rem', '25rem']} spacing="15px">
         {top.map(
           (top) => (
             (

@@ -165,23 +165,13 @@ export const MobileNav = () => {
                   </Center>
                 </Box>
               </Flex>
-              <SimpleGrid
-                as="nav"
-                gap="6"
-                mt="8"
-                columns={{
-                  base: 1,
-                  sm: 2,
-                }}
-              >
-              <a href="/Dash">
-                <Button leftIcon={<Icon as={SiTwitch}/>}>Dashboard</Button>
-              </a>
-              </SimpleGrid>
-              <ButtonGroup mt="8" spacing="4">
-                <LoginModal />
-                <ColorMode />
-              </ButtonGroup>
+              {/* Buttons for login and color mode change*/}
+              <Center>
+                <ButtonGroup mt="8" spacing="4">
+                  <LoginModal />
+                  <ColorMode />
+                </ButtonGroup>
+              </Center>
             </Box>
           </Box>
         </FocusLock>
