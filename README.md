@@ -1,3 +1,7 @@
+# Dev Note
+----
+- Over the next few months I hope to rebuild this site, with some various new features and updated format and look!
+----
 This project was bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
