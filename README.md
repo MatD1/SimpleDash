@@ -1,6 +1,6 @@
 # Dev Note
 ----
-- Over the next few months I hope to rebuild this site, with some various new features and updated format and look!
+- As of 12/12/23 I am starting to rebuild this app, over the next coming months I will start a rebuild with Remix, Tailwind, NextUI, Typescript, Twitch API, Possible Youtube API, Possible AI intergration. Stay Tuned!
 ----
 This project was bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
